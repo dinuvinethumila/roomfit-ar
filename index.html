@@ -56,19 +56,17 @@
       class="clickable-item"
       animation="property: rotation; to: 0 360 0; loop:true; dur:6000; easing:linear">
 
-      <a-box position="0 0 0" width="0.5" height="0.02" depth="0.05" color="#4a3a22"></a-box>
+      <!-- Cord: long, thin, black -->
+      <a-cylinder position="0 0 0" radius="0.006" height="0.4" color="#1a1a1a"></a-cylinder>
 
-      <a-cylinder position="-0.18 -0.15 0" radius="0.005" height="0.3" color="#2b2318"></a-cylinder>
-      <a-cone position="-0.18 -0.26 0" radius-bottom="0.08" radius-top="0.02" height="0.06" color="#e8a24f" rotation="180 0 0"></a-cone>
-      <a-sphere position="-0.18 -0.32 0" radius="0.06" color="#f5c579"></a-sphere>
+      <!-- Brass fitting where cord meets the bulb -->
+      <a-cylinder position="0 -0.21 0" radius="0.018" height="0.05" color="#c9a24d"></a-cylinder>
 
-      <a-cylinder position="0 -0.2 0" radius="0.005" height="0.4" color="#2b2318"></a-cylinder>
-      <a-cone position="0 -0.36 0" radius-bottom="0.08" radius-top="0.02" height="0.06" color="#e8a24f" rotation="180 0 0"></a-cone>
-      <a-sphere position="0 -0.42 0" radius="0.06" color="#ffffff"></a-sphere>
+      <!-- Frosted glass globe bulb -->
+      <a-sphere position="0 -0.28 0" radius="0.06" color="#f5f0e6" opacity="0.95"></a-sphere>
 
-      <a-cylinder position="0.18 -0.15 0" radius="0.005" height="0.3" color="#2b2318"></a-cylinder>
-      <a-cone position="0.18 -0.26 0" radius-bottom="0.08" radius-top="0.02" height="0.06" color="#e8a24f" rotation="180 0 0"></a-cone>
-      <a-sphere position="0.18 -0.32 0" radius="0.06" color="#f5c579"></a-sphere>
+      <!-- Warm inner glow accent -->
+      <a-sphere position="0 -0.28 0" radius="0.035" color="#ffe9b3" opacity="0.8"></a-sphere>
     </a-entity>
 
     <a-light type="ambient" color="#ffffff" intensity="0.7"></a-light>
@@ -85,10 +83,29 @@
       class="clickable-item"
       animation="property: position; from: 0 0.15 0; to: 0 0.24 0; dir: alternate; loop:true; dur:1500;">
 
-      <a-cylinder position="0 0 0" radius="0.09" height="0.28" color="#c98b56"></a-cylinder>
-      <a-cylinder position="0 0.17 0" radius="0.035" height="0.08" color="#e2e8f0"></a-cylinder>
-      <a-cylinder position="0 0.22 0" radius="0.045" height="0.05" color="#4a3a22"></a-cylinder>
-      <a-plane position="0 0 0.091" width="0.14" height="0.16" color="#ffffff" opacity="0.9"></a-plane>
+      <!-- Foot -->
+      <a-cylinder position="0 0.01 0" radius="0.05" height="0.02" color="#3d2f16"></a-cylinder>
+
+      <!-- Lower body widening into the belly -->
+      <a-cone position="0 0.06 0" radius-bottom="0.05" radius-top="0.10" height="0.08" color="#e8c14f"></a-cone>
+
+      <!-- Decorative belly band -->
+      <a-cylinder position="0 0.1075 0" radius="0.102" height="0.015" color="#1a3d6e"></a-cylinder>
+
+      <!-- Upper belly narrowing toward the shoulder -->
+      <a-cone position="0 0.15 0" radius-bottom="0.10" radius-top="0.075" height="0.07" color="#e8c14f"></a-cone>
+
+      <!-- Shoulder decorative band -->
+      <a-cylinder position="0 0.191 0" radius="0.076" height="0.012" color="#8b1e2b"></a-cylinder>
+
+      <!-- Neck narrowing sharply -->
+      <a-cone position="0 0.227 0" radius-bottom="0.075" radius-top="0.035" height="0.06" color="#e8c14f"></a-cone>
+
+      <!-- Straight neck section -->
+      <a-cylinder position="0 0.272 0" radius="0.035" height="0.03" color="#e8c14f"></a-cylinder>
+
+      <!-- Flared rim -->
+      <a-cone position="0 0.2995 0" radius-bottom="0.035" radius-top="0.05" height="0.025" color="#1a3d6e"></a-cone>
     </a-entity>
 
     <a-light type="ambient" color="#ffffff" intensity="0.7"></a-light>
@@ -104,8 +121,8 @@
 
 <script>
 const PRODUCTS = {
-  pendant: { name:"Nordic Pendant Light", desc:"Sculptural multi-bulb fixture — adds warm, multi-directional lighting.", price:"LKR 12,500" },
-  vase: { name:"Ceramic Vase", desc:"Handcrafted decorative vase — perfect for a console table or shelf.", price:"LKR 5,900" }
+  pendant: { name:"Nordic Pendant Light", desc:"Minimalist single-globe pendant — soft, warm ambient lighting for any corner.", price:"LKR 9,800" },
+  vase: { name:"Ceramic Vase", desc:"Hand-painted decorative vase with bold accent bands — a statement piece for any shelf.", price:"LKR 5,900" }
 };
 
 function showInfo(key) {
