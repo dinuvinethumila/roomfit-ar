@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<title>RoomFit AR — Catalog Scanner</title>
+<script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+<style>
+  body { margin:0; }
+  #hud { position:fixed; top:0; left:0; right:0; z-index:999;
+    background:linear-gradient(135deg,#241d15,#4a3a22);
+    padding:12px 16px; display:flex; align-items:center; justify-content:space-between; }
+  #hud .brand { display:flex; align-items:center; gap:8px; }
+  #hud h1 { color:#fdf0dd; font-size:1rem; font-weight:700; margin:0; letter-spacing:0.3px; }
+  #hud .tagline { color:#c9a876; font-size:0.65rem; display:block; margin-top:1px; }
+  #nav-btn { background:#e8a24f; color:#241d15; border:none; padding:9px 16px;
+    border-radius:8px; font-size:0.8rem; cursor:pointer; font-weight:700; }
+  #info-card { position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+    background:rgba(255,255,255,0.14); backdrop-filter:blur(10px); color:#fff;
+    padding:14px 20px; border-radius:14px; font-size:0.85rem; text-align:center;
+    z-index:999; max-width:340px; border:1px solid rgba(255,255,255,0.25); }
+  #item-name { color:#f5c579; font-weight:700; font-size:1rem; display:block; margin-bottom:4px; }
+  #item-price { color:#9fd3a8; font-weight:600; font-size:0.78rem; display:block; margin-top:4px; }
+</style>
+</head>
+<body>
+
+<div id="hud">
+  <div class="brand">
+    <h1>🏠 RoomFit AR<span class="tagline">Catalog Scanner</span></h1>
+  </div>
+  <button id="nav-btn" onclick="window.location.href='room.html'">→ Place in Room</button>
+</div>
+
+<div id="info-card" style="display:none;">
+  <span id="item-name">Nordic Pendant Light</span>
+  <span id="item-desc">Sculptural multi-bulb fixture — adds warm, multi-directional lighting to a dining or living space.</span>
+  <span id="item-price">LKR 12,500</span>
+</div>
+
+<a-scene
+  embedded
+  arjs="sourceType: webcam; debugUIEnabled: false; sourceWidth:1280; sourceHeight:960; displayWidth:1280; displayHeight:960;"
+  vr-mode-ui="enabled: false"
+  renderer="logarithmicDepthBuffer:true; antialias:true;"
+  loading-screen="enabled:false">
+
+  <a-marker preset="hiro" id="hiro-marker">
+
+    <a-cylinder position="0 0.01 0" radius="0.6" height="0.02" color="#241d15" opacity="0.9"></a-cylinder>
+
+    <!-- Décor piece 1: Nordic Pendant Light -->
+    <a-entity id="pendant-entity"
+      position="0 0.5 0"
+      class="clickable-item"
+      animation="property: rotation; to: 0 360 0; loop:true; dur:6000; easing:linear">
+
+      <a-sphere position="0 0 0" radius="0.15" color="#f5c579"></a-sphere>
+      <a-sphere position="0.28 0.18 0" radius="0.09" color="#ffffff"></a-sphere>
+      <a-sphere position="-0.28 0.18 0" radius="0.09" color="#ffffff"></a-sphere>
+      <a-sphere position="0 0.18 0.28" radius="0.09" color="#e8a24f"></a-sphere>
+      <a-sphere position="0 -0.25 -0.1" radius="0.09" color="#e8a24f"></a-sphere>
+
+      <a-cylinder position="0.14 0.09 0" radius="0.02" height="0.34" rotation="0 0 60" color="#e2e8f0"></a-cylinder>
+      <a-cylinder position="-0.14 0.09 0" radius="0.02" height="0.34" rotation="0 0 -60" color="#e2e8f0"></a-cylinder>
+      <a-cylinder position="0 0.09 0.14" radius="0.02" height="0.34" rotation="60 0 0" color="#e2e8f0"></a-cylinder>
+      <a-cylinder position="0 -0.12 -0.05" radius="0.02" height="0.34" rotation="-60 0 0" color="#e2e8f0"></a-cylinder>
+    </a-entity>
+
+    <!-- Décor piece 2: Ceramic Vase (decorative, secondary object) -->
+    <a-entity id="vase-entity"
+      position="0.42 0.15 0.2"
+      animation="property: position; from: 0.42 0.15 0.2; to: 0.42 0.24 0.2; dir: alternate; loop:true; dur:1500;">
+
+      <a-cylinder position="0 0 0" radius="0.09" height="0.28" color="#c98b56"></a-cylinder>
+      <a-cylinder position="0 0.17 0" radius="0.035" height="0.08" color="#e2e8f0"></a-cylinder>
+      <a-cylinder position="0 0.22 0" radius="0.045" height="0.05" color="#4a3a22"></a-cylinder>
+      <a-plane position="0 0 0.091" width="0.14" height="0.16" color="#ffffff" opacity="0.9"></a-plane>
+    </a-entity>
+
+    <a-light type="ambient" color="#ffffff" intensity="0.7"></a-light>
+    <a-light type="point" color="#f5c579" intensity="1.1" position="0 1.5 0"></a-light>
+  </a-marker>
+
+  <a-entity camera>
+    <a-entity cursor="fuse:false; rayOrigin:mouse;"
+      raycaster="objects:.clickable-item; recursive:true;">
+    </a-entity>
+  </a-entity>
+</a-scene>
+
+<script>
+const CATALOG = [
+  { name:"Nordic Pendant Light", desc:"Sculptural multi-bulb fixture — adds warm, multi-directional lighting to a dining or living space.", price:"LKR 12,500" },
+  { name:"Minimalist Wall Clock", desc:"Clean-faced wall clock — anchors a room's focal wall with quiet elegance.", price:"LKR 4,800" },
+  { name:"Amber Table Lamp", desc:"Soft-glow accent lamp — ideal for a reading nook or console table.", price:"LKR 7,200" }
+];
+let currentIndex = 0;
+
+document.querySelector('#pendant-entity').addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % CATALOG.length;
+  const item = CATALOG[currentIndex];
+  document.querySelector('#item-name').textContent = item.name;
+  document.querySelector('#item-desc').textContent = item.desc;
+  document.querySelector('#item-price').textContent = item.price;
+  playTone(880);
+});
+
+function playTone(freq) {
+  try {
+    const ctx = new AudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+    osc.start(); osc.stop(ctx.currentTime + 0.15);
+  } catch(e) {}
+}
+
+const markerEl = document.querySelector('#hiro-marker');
+
+markerEl.addEventListener('markerFound', () => {
+  document.querySelector('#info-card').style.display = 'block';
+});
+
+markerEl.addEventListener('markerLost', () => {
+  document.querySelector('#info-card').style.display = 'none';
+});
+</script>
+</body>
+</html>
+
