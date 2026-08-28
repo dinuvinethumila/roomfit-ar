@@ -1,1 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RoomFit AR — Place in Your Room</title>
+<style>
+  body { margin:0; font-family:"Segoe UI", sans-serif;
+    background:linear-gradient(135deg,#241d15,#4a3a22); min-height:100vh; color:#fff; }
+  #hud { position:fixed; top:0; left:0; right:0; z-index:999;
+    background:rgba(0,0,0,0.3); padding:12px 16px; display:flex;
+    align-items:center; justify-content:space-between; }
+  #hud h1 { font-size:1rem; font-weight:700; margin:0; color:#fdf0dd; }
+  #back-btn { background:#e8a24f; color:#241d15; border:none; padding:9px 16px;
+    border-radius:8px; font-size:0.8rem; cursor:pointer; font-weight:700; }
+  .container { padding:80px 20px 20px; max-width:420px; margin:0 auto; }
+  .step-label { font-size:0.8rem; color:#f5c579; font-weight:700;
+    text-transform:uppercase; margin-bottom:8px; letter-spacing:1px; }
+  .card-grid { display:flex; gap:14px; margin-bottom:30px; }
+  .product-card { flex:1; background:rgba(255,255,255,0.1); border:2px solid transparent;
+    border-radius:16px; padding:16px; text-align:center; cursor:pointer;
+    transition:0.2s; }
+  .product-card.selected { border-color:#f5c579; background:rgba(245,197,121,0.15); }
+  .product-card .emoji { font-size:2.2rem; display:block; margin-bottom:8px; }
+  .product-card .name { font-size:0.85rem; font-weight:700; }
+  .product-card .price { font-size:0.7rem; color:#9fd3a8; display:block; margin-top:4px; }
+  #ar-link-container { display:none; text-align:center; margin-top:20px; }
+  .ar-launch-btn { display:inline-block; background:linear-gradient(135deg,#e8a24f,#c98b56);
+    color:#241d15; padding:16px 34px; border-radius:30px; font-weight:800;
+    font-size:1rem; text-decoration:none; box-shadow:0 8px 30px rgba(232,162,79,0.4); }
+  #confirm-note { margin-top:16px; font-size:0.8rem; color:rgba(255,255,255,0.6); }
+  #not-ios-note { display:none; background:rgba(255,80,80,0.15); border:1px solid rgba(255,80,80,0.3);
+    padding:14px; border-radius:12px; font-size:0.82rem; margin-top:20px; }
+</style>
+</head>
+<body>
+
+<div id="hud">
+  <h1>🏠 Place in Your Room</h1>
+  <button id="back-btn" onclick="window.location.href='index.html'">← Scanner</button>
+</div>
+
+<div class="container">
+
+  <div class="step-label">Step 1 — Choose a piece</div>
+  <div class="card-grid">
+    <div class="product-card" id="card-pendant" onclick="selectProduct('pendant')">
+      <span class="emoji">💡</span>
+      <span class="name">Nordic Pendant Light</span>
+      <span class="price">LKR 12,500</span>
+    </div>
+    <div class="product-card" id="card-vase" onclick="selectProduct('vase')">
+      <span class="emoji">🏺</span>
+      <span class="name">Ceramic Vase</span>
+      <span class="price">LKR 5,900</span>
+    </div>
+  </div>
+
+  <div id="ar-link-container">
+    <div class="step-label">Step 2 — Place it in your room</div>
+    <a id="ar-launch" class="ar-launch-btn" rel="ar" href="#">
+      View in AR
+    </a>
+    <p id="confirm-note">Tap, then move your phone slowly to find your floor or table.</p>
+  </div>
+
+  <div id="not-ios-note">
+    AR Quick Look requires an iPhone or iPad running Safari or Chrome on iOS. If you're on Android, please use the Catalog Scanner page instead.
+  </div>
+
+</div>
+
+<script>
+let selectedProduct = null;
+
+const PRODUCTS = {
+  pendant: { file: 'pendant.usdz', label: 'Nordic Pendant Light — tap it in AR to see it spin' },
+  vase: { file: 'vase.usdz', label: 'Ceramic Vase — tap it in AR for a reveal animation' }
+};
+
+function selectProduct(key) {
+  selectedProduct = key;
+  document.querySelectorAll('.product-card').forEach((c) => c.classList.remove('selected'));
+  document.getElementById('card-' + key).classList.add('selected');
+
+  const arLink = document.getElementById('ar-launch');
+  arLink.setAttribute('href', PRODUCTS[key].file);
+  document.getElementById('confirm-note').textContent = PRODUCTS[key].label;
+  document.getElementById('ar-link-container').style.display = 'block';
+}
+
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+if (!isIOS) {
+  document.getElementById('not-ios-note').style.display = 'block';
+}
+</script>
+</body>
+</html>
+
 
