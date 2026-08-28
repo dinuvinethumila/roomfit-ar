@@ -46,29 +46,24 @@
   renderer="logarithmicDepthBuffer:true; antialias:true;"
   loading-screen="enabled:false">
 
+  <a-assets>
+    <a-asset-item id="pendant-model" src="models/pendant.glb"></a-asset-item>
+  </a-assets>
+
   <a-marker preset="hiro" id="hiro-marker">
 
     <a-cylinder position="0 0.01 0" radius="0.6" height="0.02" color="#241d15" opacity="0.9"></a-cylinder>
 
-    <!-- Décor piece 1: Nordic Pendant Light -->
+    <!-- Décor piece 1: Nordic Pendant Light (downloaded GLB model) -->
     <a-entity id="pendant-entity"
-      position="0 0.5 0"
+      gltf-model="#pendant-model"
+      position="0 0.6 0"
+      scale="0.15 0.15 0.15"
       class="clickable-item"
       animation="property: rotation; to: 0 360 0; loop:true; dur:6000; easing:linear">
-
-      <a-sphere position="0 0 0" radius="0.15" color="#f5c579"></a-sphere>
-      <a-sphere position="0.28 0.18 0" radius="0.09" color="#ffffff"></a-sphere>
-      <a-sphere position="-0.28 0.18 0" radius="0.09" color="#ffffff"></a-sphere>
-      <a-sphere position="0 0.18 0.28" radius="0.09" color="#e8a24f"></a-sphere>
-      <a-sphere position="0 -0.25 -0.1" radius="0.09" color="#e8a24f"></a-sphere>
-
-      <a-cylinder position="0.14 0.09 0" radius="0.02" height="0.34" rotation="0 0 60" color="#e2e8f0"></a-cylinder>
-      <a-cylinder position="-0.14 0.09 0" radius="0.02" height="0.34" rotation="0 0 -60" color="#e2e8f0"></a-cylinder>
-      <a-cylinder position="0 0.09 0.14" radius="0.02" height="0.34" rotation="60 0 0" color="#e2e8f0"></a-cylinder>
-      <a-cylinder position="0 -0.12 -0.05" radius="0.02" height="0.34" rotation="-60 0 0" color="#e2e8f0"></a-cylinder>
     </a-entity>
 
-    <!-- Décor piece 2: Ceramic Vase (decorative, secondary object) -->
+    <!-- Décor piece 2: Ceramic Vase (primitive, decorative, secondary object) -->
     <a-entity id="vase-entity"
       position="0.42 0.15 0.2"
       animation="property: position; from: 0.42 0.15 0.2; to: 0.42 0.24 0.2; dir: alternate; loop:true; dur:1500;">
@@ -132,4 +127,3 @@ markerEl.addEventListener('markerLost', () => {
 </script>
 </body>
 </html>
-
