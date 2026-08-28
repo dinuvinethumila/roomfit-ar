@@ -46,9 +46,29 @@
   renderer="logarithmicDepthBuffer:true; antialias:true;"
   loading-screen="enabled:false">
 
-  <a-assets>
-    <a-asset-item id="pendant-model" src="models/pendant.glb"></a-asset-item>
-  </a-assets>
+  <a-entity id="pendant-entity"
+  position="0 0.9 0"
+  class="clickable-item"
+  animation="property: rotation; to: 0 360 0; loop:true; dur:6000; easing:linear">
+
+  <!-- Ceiling mount bar -->
+  <a-box position="0 0 0" width="0.5" height="0.02" depth="0.05" color="#4a3a22"></a-box>
+
+  <!-- Bulb 1 -->
+  <a-cylinder position="-0.18 -0.15 0" radius="0.005" height="0.3" color="#2b2318"></a-cylinder>
+  <a-cone position="-0.18 -0.26 0" radius-bottom="0.08" radius-top="0.02" height="0.06" color="#e8a24f" rotation="180 0 0"></a-cone>
+  <a-sphere position="-0.18 -0.32 0" radius="0.06" color="#f5c579"></a-sphere>
+
+  <!-- Bulb 2 (center) -->
+  <a-cylinder position="0 -0.2 0" radius="0.005" height="0.4" color="#2b2318"></a-cylinder>
+  <a-cone position="0 -0.36 0" radius-bottom="0.08" radius-top="0.02" height="0.06" color="#e8a24f" rotation="180 0 0"></a-cone>
+  <a-sphere position="0 -0.42 0" radius="0.06" color="#ffffff"></a-sphere>
+
+  <!-- Bulb 3 -->
+  <a-cylinder position="0.18 -0.15 0" radius="0.005" height="0.3" color="#2b2318"></a-cylinder>
+  <a-cone position="0.18 -0.26 0" radius-bottom="0.08" radius-top="0.02" height="0.06" color="#e8a24f" rotation="180 0 0"></a-cone>
+  <a-sphere position="0.18 -0.32 0" radius="0.06" color="#f5c579"></a-sphere>
+</a-entity>
 
   <a-marker preset="hiro" id="hiro-marker">
 
