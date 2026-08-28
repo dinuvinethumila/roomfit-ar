@@ -19,7 +19,7 @@
   #info-card { position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
     background:rgba(255,255,255,0.14); backdrop-filter:blur(10px); color:#fff;
     padding:14px 20px; border-radius:14px; font-size:0.85rem; text-align:center;
-    z-index:999; max-width:340px; border:1px solid rgba(255,255,255,0.25); }
+    z-index:999; max-width:340px; border:1px solid rgba(255,255,255,0.25); display:none; }
   #item-name { color:#f5c579; font-weight:700; font-size:1rem; display:block; margin-bottom:4px; }
   #item-price { color:#9fd3a8; font-weight:600; font-size:0.78rem; display:block; margin-top:4px; }
 </style>
@@ -33,10 +33,10 @@
   <button id="nav-btn" onclick="window.location.href='room.html'">→ Place in Room</button>
 </div>
 
-<div id="info-card" style="display:none;">
-  <span id="item-name">Nordic Pendant Light</span>
-  <span id="item-desc">Sculptural multi-bulb fixture — adds warm, multi-directional lighting to a dining or living space.</span>
-  <span id="item-price">LKR 12,500</span>
+<div id="info-card">
+  <span id="item-name"></span>
+  <span id="item-desc"></span>
+  <span id="item-price"></span>
 </div>
 
 <a-scene
@@ -46,47 +46,44 @@
   renderer="logarithmicDepthBuffer:true; antialias:true;"
   loading-screen="enabled:false">
 
-  <a-entity id="pendant-entity"
-  position="0 0.9 0"
-  class="clickable-item"
-  animation="property: rotation; to: 0 360 0; loop:true; dur:6000; easing:linear">
+  <!-- MARKER 1: Pendant Light product tag -->
+  <a-marker type="pattern" url="markers/pendant-marker.patt" id="pendant-marker">
 
-  <!-- Ceiling mount bar -->
-  <a-box position="0 0 0" width="0.5" height="0.02" depth="0.05" color="#4a3a22"></a-box>
+    <a-cylinder position="0 0.01 0" radius="0.5" height="0.02" color="#241d15" opacity="0.9"></a-cylinder>
 
-  <!-- Bulb 1 -->
-  <a-cylinder position="-0.18 -0.15 0" radius="0.005" height="0.3" color="#2b2318"></a-cylinder>
-  <a-cone position="-0.18 -0.26 0" radius-bottom="0.08" radius-top="0.02" height="0.06" color="#e8a24f" rotation="180 0 0"></a-cone>
-  <a-sphere position="-0.18 -0.32 0" radius="0.06" color="#f5c579"></a-sphere>
-
-  <!-- Bulb 2 (center) -->
-  <a-cylinder position="0 -0.2 0" radius="0.005" height="0.4" color="#2b2318"></a-cylinder>
-  <a-cone position="0 -0.36 0" radius-bottom="0.08" radius-top="0.02" height="0.06" color="#e8a24f" rotation="180 0 0"></a-cone>
-  <a-sphere position="0 -0.42 0" radius="0.06" color="#ffffff"></a-sphere>
-
-  <!-- Bulb 3 -->
-  <a-cylinder position="0.18 -0.15 0" radius="0.005" height="0.3" color="#2b2318"></a-cylinder>
-  <a-cone position="0.18 -0.26 0" radius-bottom="0.08" radius-top="0.02" height="0.06" color="#e8a24f" rotation="180 0 0"></a-cone>
-  <a-sphere position="0.18 -0.32 0" radius="0.06" color="#f5c579"></a-sphere>
-</a-entity>
-
-  <a-marker preset="hiro" id="hiro-marker">
-
-    <a-cylinder position="0 0.01 0" radius="0.6" height="0.02" color="#241d15" opacity="0.9"></a-cylinder>
-
-    <!-- Décor piece 1: Nordic Pendant Light (downloaded GLB model) -->
     <a-entity id="pendant-entity"
-      gltf-model="#pendant-model"
-      position="0 0.6 0"
-      scale="0.15 0.15 0.15"
+      position="0 0.9 0"
       class="clickable-item"
       animation="property: rotation; to: 0 360 0; loop:true; dur:6000; easing:linear">
+
+      <a-box position="0 0 0" width="0.5" height="0.02" depth="0.05" color="#4a3a22"></a-box>
+
+      <a-cylinder position="-0.18 -0.15 0" radius="0.005" height="0.3" color="#2b2318"></a-cylinder>
+      <a-cone position="-0.18 -0.26 0" radius-bottom="0.08" radius-top="0.02" height="0.06" color="#e8a24f" rotation="180 0 0"></a-cone>
+      <a-sphere position="-0.18 -0.32 0" radius="0.06" color="#f5c579"></a-sphere>
+
+      <a-cylinder position="0 -0.2 0" radius="0.005" height="0.4" color="#2b2318"></a-cylinder>
+      <a-cone position="0 -0.36 0" radius-bottom="0.08" radius-top="0.02" height="0.06" color="#e8a24f" rotation="180 0 0"></a-cone>
+      <a-sphere position="0 -0.42 0" radius="0.06" color="#ffffff"></a-sphere>
+
+      <a-cylinder position="0.18 -0.15 0" radius="0.005" height="0.3" color="#2b2318"></a-cylinder>
+      <a-cone position="0.18 -0.26 0" radius-bottom="0.08" radius-top="0.02" height="0.06" color="#e8a24f" rotation="180 0 0"></a-cone>
+      <a-sphere position="0.18 -0.32 0" radius="0.06" color="#f5c579"></a-sphere>
     </a-entity>
 
-    <!-- Décor piece 2: Ceramic Vase (primitive, decorative, secondary object) -->
+    <a-light type="ambient" color="#ffffff" intensity="0.7"></a-light>
+    <a-light type="point" color="#f5c579" intensity="1.1" position="0 1.5 0"></a-light>
+  </a-marker>
+
+  <!-- MARKER 2: Ceramic Vase product tag -->
+  <a-marker type="pattern" url="markers/vase-marker.patt" id="vase-marker">
+
+    <a-cylinder position="0 0.01 0" radius="0.5" height="0.02" color="#241d15" opacity="0.9"></a-cylinder>
+
     <a-entity id="vase-entity"
-      position="0.42 0.15 0.2"
-      animation="property: position; from: 0.42 0.15 0.2; to: 0.42 0.24 0.2; dir: alternate; loop:true; dur:1500;">
+      position="0 0.15 0"
+      class="clickable-item"
+      animation="property: position; from: 0 0.15 0; to: 0 0.24 0; dir: alternate; loop:true; dur:1500;">
 
       <a-cylinder position="0 0 0" radius="0.09" height="0.28" color="#c98b56"></a-cylinder>
       <a-cylinder position="0 0.17 0" radius="0.035" height="0.08" color="#e2e8f0"></a-cylinder>
@@ -106,44 +103,28 @@
 </a-scene>
 
 <script>
-const CATALOG = [
-  { name:"Nordic Pendant Light", desc:"Sculptural multi-bulb fixture — adds warm, multi-directional lighting to a dining or living space.", price:"LKR 12,500" },
-  { name:"Minimalist Wall Clock", desc:"Clean-faced wall clock — anchors a room's focal wall with quiet elegance.", price:"LKR 4,800" },
-  { name:"Amber Table Lamp", desc:"Soft-glow accent lamp — ideal for a reading nook or console table.", price:"LKR 7,200" }
-];
-let currentIndex = 0;
+const PRODUCTS = {
+  pendant: { name:"Nordic Pendant Light", desc:"Sculptural multi-bulb fixture — adds warm, multi-directional lighting.", price:"LKR 12,500" },
+  vase: { name:"Ceramic Vase", desc:"Handcrafted decorative vase — perfect for a console table or shelf.", price:"LKR 5,900" }
+};
 
-document.querySelector('#pendant-entity').addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % CATALOG.length;
-  const item = CATALOG[currentIndex];
-  document.querySelector('#item-name').textContent = item.name;
-  document.querySelector('#item-desc').textContent = item.desc;
-  document.querySelector('#item-price').textContent = item.price;
-  playTone(880);
-});
-
-function playTone(freq) {
-  try {
-    const ctx = new AudioContext();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain); gain.connect(ctx.destination);
-    osc.frequency.value = freq;
-    gain.gain.setValueAtTime(0.1, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
-    osc.start(); osc.stop(ctx.currentTime + 0.15);
-  } catch(e) {}
+function showInfo(key) {
+  const p = PRODUCTS[key];
+  document.querySelector('#item-name').textContent = p.name;
+  document.querySelector('#item-desc').textContent = p.desc;
+  document.querySelector('#item-price').textContent = p.price;
+  document.querySelector('#info-card').style.display = 'block';
 }
 
-const markerEl = document.querySelector('#hiro-marker');
-
-markerEl.addEventListener('markerFound', () => {
-  document.querySelector('#info-card').style.display = 'block';
-});
-
-markerEl.addEventListener('markerLost', () => {
+function hideInfo() {
   document.querySelector('#info-card').style.display = 'none';
-});
+}
+
+document.querySelector('#pendant-marker').addEventListener('markerFound', () => showInfo('pendant'));
+document.querySelector('#pendant-marker').addEventListener('markerLost', hideInfo);
+
+document.querySelector('#vase-marker').addEventListener('markerFound', () => showInfo('vase'));
+document.querySelector('#vase-marker').addEventListener('markerLost', hideInfo);
 </script>
 </body>
 </html>
